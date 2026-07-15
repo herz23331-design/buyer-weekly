@@ -1,0 +1,867 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>商品小周报｜10品完整卡片脱敏版</title>
+  <style>
+  :root {
+    --ink:#211e1c; --ink-soft:#514b47; --muted:#716963; --paper:#f7f5f2; --card:#fffdfb;
+    --line:#e8e1da; --green:#227456; --green-soft:#e9f5ef; --red:#a34943;
+    --shadow:0 12px 34px rgba(55,42,34,.07);
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth;background:var(--paper)}
+  body{margin:0;color:var(--ink);background:radial-gradient(circle at 5% 0,rgba(199,67,93,.07),transparent 26rem),radial-gradient(circle at 96% 20%,rgba(110,88,165,.06),transparent 28rem),var(--paper);font-family:"PingFang SC","Noto Sans CJK SC","Microsoft YaHei",Arial,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:inherit;text-decoration:none}
+  a:focus-visible{outline:3px solid rgba(199,67,93,.4);outline-offset:3px;border-radius:10px}
+  .page{width:min(1440px,calc(100% - 48px));margin:0 auto;padding:28px 0 54px}
+  .hero{position:relative;isolation:isolate;overflow:hidden;padding:28px 32px 30px;color:#fffaf7;border-radius:30px;background:#221e1c;box-shadow:0 22px 60px rgba(43,31,26,.15)}
+  .hero:before,.hero:after{position:absolute;z-index:-1;content:"";border-radius:50%}
+  .hero:before{width:390px;height:390px;top:-240px;right:9%;border:82px solid rgba(199,67,93,.28)}
+  .hero:after{width:260px;height:260px;right:-90px;bottom:-190px;border:62px solid rgba(110,88,165,.2)}
+  .hero-top{display:flex;align-items:center;justify-content:space-between;gap:24px;padding-bottom:18px;border-bottom:1px solid rgba(255,255,255,.13)}
+  .identity{display:flex;align-items:center;gap:11px}
+  .identity-mark{display:grid;width:34px;height:34px;place-items:center;border:1px solid rgba(255,255,255,.27);border-radius:50%;font:700 12px/1 Georgia,serif}
+  .identity div:last-child{display:grid}.identity strong{font-size:14px;letter-spacing:.07em}.identity small{color:rgba(255,255,255,.55);font-size:9px;letter-spacing:.15em}
+  .period{color:rgba(255,255,255,.68);font-size:12px;text-align:right;font-variant-numeric:tabular-nums}
+  .hero-main{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(480px,.85fr);gap:42px;align-items:end;padding-top:27px}
+  .eyebrow{display:flex;align-items:center;gap:9px;margin-bottom:8px;color:#f0b2be;font-size:11px;font-weight:750;letter-spacing:.16em}.eyebrow:before{width:22px;height:2px;content:"";background:currentColor}
+  h1{margin:0;font-family:"Songti SC","Noto Serif CJK SC",STSong,serif;font-size:44px;line-height:1.14;letter-spacing:-.035em}
+  .hero-main p{max-width:650px;margin:12px 0 0;color:rgba(255,255,255,.67);font-size:14px}
+  .demo-note{display:inline-flex;align-items:center;gap:7px;margin-top:14px;padding:6px 10px;color:#ffd4dc;border:1px solid rgba(255,190,204,.25);border-radius:999px;background:rgba(199,67,93,.15);font-size:11px}.demo-note:before{width:5px;height:5px;content:"";border-radius:50%;background:#eb8fa0}
+  .hero-side{display:grid;gap:12px}
+  .view-switch{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  .view-switch a{display:grid;min-height:50px;padding:8px 11px;border:1px solid rgba(255,255,255,.12);border-radius:13px;background:rgba(255,255,255,.06);transition:background-color .2s,border-color .2s;cursor:pointer}
+  .view-switch a:hover{background:rgba(255,255,255,.1)}.view-switch a.active{border-color:rgba(242,167,181,.55);background:rgba(199,67,93,.2)}
+  .view-switch b{font-size:11px}.view-switch span{color:rgba(255,255,255,.62);font-size:10px}
+  .hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .hero-stats>div{display:grid;gap:2px;padding:10px 12px;border:1px solid rgba(255,255,255,.1);border-radius:13px;background:rgba(255,255,255,.055)}
+  .hero-stats span{color:rgba(255,255,255,.5);font-size:10px}.hero-stats strong{font-family:Georgia,serif;font-size:23px;font-weight:600}.hero-stats small{color:rgba(255,255,255,.58);font-size:9px}
+  .section-nav{position:sticky;z-index:20;top:10px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0 22px;padding:7px;border:1px solid rgba(222,214,206,.86);border-radius:17px;background:rgba(255,253,251,.91);box-shadow:0 10px 30px rgba(54,43,36,.07);backdrop-filter:blur(14px)}
+  .section-nav a{display:flex;min-height:48px;align-items:center;gap:10px;padding:7px 12px;border-radius:11px;transition:background-color .18s}.section-nav a:hover{background:#f5f0ec}
+  .section-nav b{display:grid;width:27px;height:27px;place-items:center;border-radius:50%;font:700 11px/1 Georgia,serif}
+  .section-nav span{display:grid}.section-nav strong{font-size:12px}.section-nav small{color:var(--muted);font-size:10px}
+  .nav-berry b{color:#932a43;background:#fff0f3}.nav-amber b{color:#854912;background:#fff4e4}.nav-violet b{color:#503a80;background:#f1eefb}
+  .report-section{--accent:#c7435d;--accent-deep:#922a42;--soft:#fff0f3;scroll-margin-top:82px;margin-top:22px;padding:22px 24px 24px;border:1px solid var(--line);border-radius:24px;background:rgba(255,253,251,.9);box-shadow:0 10px 30px rgba(55,42,34,.045)}
+  .tone-amber{--accent:#c87922;--accent-deep:#824710;--soft:#fff4e4}.tone-violet{--accent:#6e58a5;--accent-deep:#503a80;--soft:#f1eefb}
+  .section-head{display:grid;grid-template-columns:56px minmax(250px,1fr) minmax(340px,.8fr) auto;gap:15px;align-items:center;margin-bottom:18px}
+  .section-number{color:var(--accent);font:700 42px/.9 Georgia,serif;letter-spacing:-.06em}
+  .section-head h2{margin:0 0 2px;font-family:"Songti SC",STSong,serif;font-size:23px;line-height:1.25}.section-head p{margin:0;color:var(--muted);font-size:11px}
+  .section-insight{padding:8px 11px;color:var(--ink-soft);border-radius:11px;background:#f5f1ed;font-size:11px}.section-insight span{margin-right:7px;color:var(--accent-deep);font-weight:750}
+  .count{padding:6px 9px;color:var(--accent-deep);border-radius:999px;background:var(--soft);font:700 10px/1 Georgia,serif;letter-spacing:.06em}
+  .all-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+  .full-card,.featured-card{position:relative;min-width:0;overflow:hidden;border:1px solid #e7dfd8;border-radius:17px;background:#fff;box-shadow:0 7px 20px rgba(45,34,28,.045);transition:border-color .2s,box-shadow .2s}
+  .full-card:hover,.featured-card:hover{border-color:#d5c8bf;box-shadow:var(--shadow)}
+  .full-card{display:flex;min-height:292px;flex-direction:column;padding:13px}.full-card.top-card{background:linear-gradient(145deg,var(--soft),#fff 45%)}
+  .card-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px}.rank{font:700 16px/1 Georgia,serif}.signal{overflow:hidden;max-width:105px;padding:4px 6px;color:var(--accent-deep);border-radius:999px;background:var(--soft);font-size:9px;font-weight:700;text-overflow:ellipsis;white-space:nowrap}
+  .product-line,.featured-product{display:grid;grid-template-columns:78px minmax(0,1fr);gap:10px;align-items:center}
+  .packshot{position:relative;display:grid;width:78px;height:88px;place-items:center;overflow:hidden;border:1px solid rgba(120,97,84,.12);border-radius:13px;background:radial-gradient(circle at 50% 78%,rgba(51,35,28,.12),transparent 33%),linear-gradient(150deg,#f7f2ed,#fff)}
+  .packshot.large{width:88px;height:98px}.packshot.mini{width:46px;height:50px;border-radius:10px}.packshot.micro{width:34px;height:36px;border-radius:8px}
+  .packshot small{position:absolute;right:4px;bottom:3px;color:rgba(50,39,34,.37);font-size:7px}.packshot.mini small,.packshot.micro small{display:none}
+  .shape{position:relative;display:grid;width:42px;height:61px;place-items:center;color:rgba(46,37,33,.68);border-radius:9px 9px 13px 13px;background:linear-gradient(135deg,var(--shape-a),var(--shape-b));box-shadow:inset 4px 5px 12px rgba(255,255,255,.58),0 8px 14px rgba(67,49,40,.13);font:700 7px/1 Georgia,serif;letter-spacing:.05em}
+  .shape:after{position:absolute;width:64%;height:22%;content:"";border:1px solid rgba(47,38,34,.12);border-radius:2px;background:rgba(255,255,255,.27)}
+  .shape:before{position:absolute;top:-9px;width:24px;height:11px;content:"";border-radius:4px 4px 2px 2px;background:#4a403b}
+  .packshot.large .shape{width:48px;height:70px}.packshot.mini .shape{width:25px;height:35px;font-size:0}.packshot.micro .shape{width:19px;height:27px;font-size:0}.packshot.mini .shape:before{top:-5px;width:14px;height:7px}.packshot.micro .shape:before{top:-4px;width:11px;height:5px}
+  .shape.jar{width:54px;height:38px;border-radius:7px 7px 15px 15px}.shape.jar:before{top:-7px;width:56px;height:10px;background:#e7e0da;border:1px solid rgba(50,39,34,.1)}.shape.jar:after{height:28%}
+  .packshot.mini .shape.jar{width:31px;height:21px}.packshot.micro .shape.jar{width:24px;height:17px}
+  .shape.dropper{width:38px;height:57px}.shape.dropper:before{top:-15px;width:18px;height:18px;border-radius:7px 7px 2px 2px}
+  .shape.tube{height:67px;clip-path:polygon(8% 0,92% 0,100% 92%,86% 100%,14% 100%,0 92%)}.shape.tube:before{top:auto;bottom:-5px;width:29px;height:9px;background:#ece6e0}
+  .shape.spray:before{top:-13px;left:9px;width:22px;height:16px;background:#eee8e2;box-shadow:7px 1px 0 -3px #4a403b}
+  .shape.pump:before{top:-13px;left:13px;width:20px;height:15px;box-shadow:7px -3px 0 -3px #4a403b}
+  .shape.stick:before{top:-7px;width:44px;height:10px;background:#ede8f4;border:1px solid rgba(50,39,34,.1)}
+  .shape.pouch{width:52px;height:58px;clip-path:polygon(7% 0,93% 0,100% 90%,87% 100%,13% 100%,0 90%)}.shape.pouch:before{display:none}
+  .shape.ampoule{width:26px;height:62px;border-radius:7px 7px 12px 12px}.shape.ampoule:before{top:-11px;width:10px;height:13px}
+  .product-copy{min-width:0}.product-copy h3{display:-webkit-box;overflow:hidden;margin:0 0 4px;font-size:13px;font-weight:750;line-height:1.35;-webkit-box-orient:vertical;-webkit-line-clamp:2}.store{overflow:hidden;margin:0 0 7px;color:var(--muted);font-size:9px;text-overflow:ellipsis;white-space:nowrap}.store:before{display:inline-block;width:8px;height:6px;margin-right:4px;content:"";border:1px solid currentColor;border-radius:1px}
+  .scene{display:inline-flex;max-width:100%;padding:3px 6px;overflow:hidden;color:var(--ink-soft);border:1px solid #ddd4cd;border-radius:999px;font-size:9px;font-weight:650;text-overflow:ellipsis;white-space:nowrap}
+  .effect{display:grid;grid-template-columns:52px minmax(0,1fr);gap:6px;margin-top:10px;padding:8px 9px;border-radius:9px;background:#f5f1ed;font-size:9px}.effect span{color:var(--muted)}.effect strong{overflow:hidden;font-weight:700;text-overflow:ellipsis;white-space:nowrap}
+  .metric-line{display:flex;align-items:end;justify-content:space-between;gap:8px;margin-top:auto;padding-top:11px}.metric-line>div:first-child{min-width:0}.metric-line span,.delta small{display:block;color:var(--muted);font-size:8px}.metric-line strong{font:700 20px/1 Georgia,serif;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .metric-line strong.grade{display:inline-flex;margin-top:3px;padding:5px 8px;color:var(--accent-deep);border:1px solid color-mix(in srgb,var(--accent) 24%,white);border-radius:999px;background:var(--soft);font:750 13px/1 "PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:.04em}
+  .delta{font-size:10px;font-weight:750;text-align:right;white-space:nowrap}.up{color:var(--green)!important}.down{color:var(--red)!important}
+  .extra{display:inline-flex;width:max-content;max-width:100%;margin-top:5px;padding:3px 6px;overflow:hidden;color:var(--accent-deep);border-radius:999px;background:var(--soft);font-size:8px;font-weight:650;text-overflow:ellipsis;white-space:nowrap}
+  .tier-band{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:9px}.tier-band i{height:5px;border-radius:999px;background:#eee8e3}.tier-band i.on{background:linear-gradient(90deg,var(--accent),color-mix(in srgb,var(--accent) 52%,white))}
+  .spark{display:flex;height:33px;align-items:end;gap:3px;margin-top:7px;padding:4px 5px 3px;border-radius:8px;background:var(--soft)}
+  .spark i{display:block;width:100%;height:var(--h);min-height:3px;border-radius:2px 2px 1px 1px;background:var(--accent);opacity:.68}.spark i:last-child{opacity:1}
+  .focus-layout{display:grid;grid-template-columns:minmax(0,946px) 420px;gap:18px}
+  .top-three{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.featured-card{display:flex;min-height:342px;flex-direction:column;padding:15px}.featured-card.rank-1{background:linear-gradient(145deg,var(--soft),#fff 48%)}
+  .featured-product{grid-template-columns:88px minmax(0,1fr)}.featured-card .product-copy h3{font-size:14px}.featured-card .store{font-size:10px}.featured-card .scene{font-size:10px}.featured-card .effect{font-size:10px}.featured-card .metric-line strong{font-size:22px}.featured-card .metric-line strong.grade{font-size:14px}
+  .buy-tip{display:grid;grid-template-columns:52px minmax(0,1fr);gap:6px;margin-top:8px;padding:7px 9px;color:var(--ink-soft);border-left:2px solid var(--accent);border-radius:0 8px 8px 0;background:var(--soft);font-size:8px}.buy-tip b{color:var(--accent-deep)}
+  .compact-ranking{display:grid;grid-template-rows:44px repeat(7,1fr);gap:5px;min-width:0;padding:10px;border:1px solid #e6ded7;border-radius:17px;background:#fff}
+  .ranking-title{display:flex;align-items:center;justify-content:space-between;padding:0 4px 4px;border-bottom:1px solid var(--line)}.ranking-title>div{display:flex;align-items:baseline;gap:8px}.ranking-title b{font:700 16px/1 Georgia,serif}.ranking-title span{font-size:11px;font-weight:700}.ranking-title small{color:var(--muted);font-size:9px}
+  .compact-row{display:grid;grid-template-columns:25px 34px minmax(0,1fr) 70px;gap:7px;align-items:center;min-height:37px;padding:3px 4px;border-radius:9px;transition:background-color .18s}.compact-row:hover{background:#f7f3ef}
+  .compact-rank{color:var(--accent);font:700 11px/1 Georgia,serif}.compact-name{display:grid;min-width:0;line-height:1.15}.compact-name strong,.compact-name small{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.compact-name strong{font-size:10px}.compact-name small{color:var(--muted);font-size:8px}.compact-metric{display:grid;justify-items:end;text-align:right;line-height:1.08}.compact-metric strong{font:700 12px/1 Georgia,serif}.compact-metric strong.grade{padding:3px 5px;color:var(--accent-deep);border-radius:999px;background:var(--soft);font:750 8.5px/1 "PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:.02em}.compact-metric span{font-size:8px;font-weight:700}.compact-metric small{max-width:72px;overflow:hidden;color:var(--accent-deep);font-size:7px;text-overflow:ellipsis;white-space:nowrap}
+  .row-metric strong.grade{display:inline-flex;margin-top:3px;padding:4px 7px;color:var(--accent-deep);border-radius:999px;background:var(--soft);font:750 10px/1 "PingFang SC","Microsoft YaHei",sans-serif;letter-spacing:.02em}
+  .desktop-detail{display:none}
+  .method{display:grid;grid-template-columns:160px repeat(3,minmax(0,1fr));gap:18px;margin-top:24px;padding:16px 18px;border:1px solid var(--line);border-radius:17px;background:rgba(255,253,251,.86);color:var(--muted);font-size:10px}.method h3{margin:0;color:var(--ink);font-size:12px}.method b{display:block;margin-bottom:3px;color:var(--ink);font-size:10px}
+  footer{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:17px 3px 0;color:var(--muted);font-size:9px}footer strong{color:var(--ink)}
+  @media(max-width:1279px){
+    .page{width:min(1100px,calc(100% - 32px))}.hero-main{grid-template-columns:1fr}.all-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+    .focus-layout{grid-template-columns:1fr}.compact-ranking{display:none}.desktop-detail{display:block;margin-top:14px;border:1px solid #e6ded7;border-radius:16px;background:#fff;overflow:hidden}
+    .rank-head,.rank-row{display:grid;grid-template-columns:40px 46px minmax(160px,1.2fr) 110px 120px 100px minmax(150px,1fr) 80px;gap:8px;align-items:center}.rank-head{min-height:36px;padding:0 10px;color:var(--muted);background:#f5f1ed;font-size:9px}.rank-row{min-height:66px;padding:7px 10px;border-top:1px solid var(--line);font-size:9px}.rank-row .spark{height:26px;margin:0}.row-product{display:grid;min-width:0}.row-product strong,.row-product small,.row-effect{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.row-product small,.row-metric span,.row-effect small{display:block;color:var(--muted);font-size:8px}.row-metric strong{font:700 14px/1 Georgia,serif}.row-trend b{font-size:8px}.row-signal{padding:4px;color:var(--accent-deep);border-radius:999px;background:var(--soft);text-align:center}
+  }
+  @media(max-width:820px){
+    body{font-size:15px}.page{width:calc(100% - 24px);padding-top:12px}.hero{padding:20px 17px;border-radius:22px}.hero-top{align-items:flex-start}.period{max-width:142px;font-size:10px}.hero-main{gap:24px}.hero-side{gap:9px}h1{font-size:33px}.hero-main p{font-size:13px}.hero-stats{grid-template-columns:1fr}.hero-stats>div{grid-template-columns:84px 1fr auto;align-items:center}.hero-stats small{text-align:right}
+    .section-nav{top:6px;padding:5px}.section-nav a{justify-content:center;min-height:44px;padding:5px}.section-nav span{display:none}
+    .report-section{padding:17px 14px;border-radius:19px}.section-head{grid-template-columns:43px minmax(0,1fr) auto;gap:9px}.section-number{font-size:36px}.section-head h2{font-size:19px}.section-head p{font-size:10px}.section-insight{grid-column:2/-1}.count{grid-column:3;grid-row:1}
+    .all-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.top-three{grid-template-columns:1fr}.featured-card{min-height:auto}.featured-product{grid-template-columns:88px minmax(0,1fr)}
+    .rank-head{display:none}.rank-row{grid-template-columns:36px 46px minmax(0,1fr) 82px;min-height:64px}.rank-row>*:nth-child(n+5){display:none}.row-metric{text-align:right}.method{grid-template-columns:1fr;gap:10px}footer{flex-direction:column;gap:5px}
+  }
+  @media(max-width:520px){
+    .all-grid{grid-template-columns:1fr}.full-card{min-height:0}.view-switch{grid-template-columns:1fr 1fr}.view-switch a{min-height:48px}.product-line{grid-template-columns:88px minmax(0,1fr)}.packshot{width:88px;height:96px}.full-card .product-copy h3{font-size:14px}.store{font-size:11px}.scene{font-size:10px}.effect{font-size:11px}.metric-line span,.delta small{font-size:9px}
+  }
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition-duration:.01ms!important}}
+  @media print{body{background:#fff}.page{width:100%;padding:0}.section-nav{position:static}.hero,.report-section,.full-card,.featured-card{box-shadow:none;break-inside:avoid}}
+</style>
+
+<style>
+  /* 极简小标题条（替代深色 hero） */
+  .mini-title{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;padding:20px 4px 8px;border-bottom:1px solid rgba(200,190,180,.35);margin-bottom:6px}
+  .mini-title h1{margin:0;font-size:22px;font-weight:600;color:#2a1e18;letter-spacing:.5px}
+  .mini-title span{font-size:12px;color:#8a7a6d;letter-spacing:.04em}
+  @media (max-width:640px){.mini-title{padding:14px 2px 6px;gap:6px}.mini-title h1{font-size:18px}.mini-title span{font-size:11px}}
+  .spark.spark28{height:38px;gap:1.5px;padding:5px 6px 4px;position:relative}
+  .spark.spark28::before{content:"";position:absolute;left:50%;top:6px;bottom:5px;width:1px;background:rgba(0,0,0,0.08);pointer-events:none}
+  .spark.spark28 i{opacity:.55}
+  .spark.spark28 i:nth-child(n+15){opacity:.85}
+  .spark.spark28 i:last-child{opacity:1}
+  .packshot.packshot-photo{padding:0;background:#faf7f2;overflow:hidden;border-radius:10px}
+  .packshot.packshot-photo>img{width:100%;height:100%;object-fit:cover;display:block;background:#f2ede4}
+  /* YTD 隐藏动能列时，metric-line 单列布局 */
+  .metric-line.metric-line-solo{justify-content:flex-start}
+  /* 高搜索段 spark2：只 2 根柱，前14日 vs 近14日 */
+  .spark.spark2{height:38px;gap:12px;padding:5px 10px 4px;display:flex;align-items:flex-end;justify-content:center}
+  .spark.spark2 i{flex:0 0 26px;height:calc(var(--h,20%) * 1);min-height:8px;border-radius:4px 4px 2px 2px;background:linear-gradient(180deg,var(--accent),color-mix(in oklab,var(--accent) 45%,transparent));display:block;position:relative}
+  .spark.spark2 i:first-child{opacity:.5}
+  .spark.spark2 i:last-child{opacity:1}
+  .spark.spark2 i:first-child::after{content:"前14日";position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);font-size:9px;color:rgba(0,0,0,.45);white-space:nowrap}
+  .spark.spark2 i:last-child::after{content:"近14日";position:absolute;bottom:-14px;left:50%;transform:translateX(-50%);font-size:9px;color:rgba(0,0,0,.65);white-space:nowrap;font-weight:600}
+  /* hero-stats 三张卡垂直堆叠（每张卡内左标签·中大值·右品名 水平三列） */
+  .hero-stats.hero-stats-3col{display:flex;flex-direction:column;gap:8px;width:100%}
+  .hero-stats.hero-stats-3col>div{display:grid;grid-template-columns:80px 1fr auto;align-items:center;gap:14px;padding:10px 16px}
+  .hero-stats.hero-stats-3col>div>span{font-size:11px;color:rgba(255,255,255,.5);white-space:nowrap;letter-spacing:.04em}
+  .hero-stats.hero-stats-3col>div>strong{text-align:center;font-family:Georgia,serif;font-size:22px;font-weight:700;color:#fffaf7;white-space:nowrap}
+  .hero-stats.hero-stats-3col>div>strong.hs-tag{font-family:"PingFang SC","Microsoft YaHei",sans-serif;font-size:16px;color:#f0b2be;letter-spacing:.06em}
+  .hero-stats.hero-stats-3col>div>small{text-align:right;font-size:11.5px;line-height:1.35;color:rgba(255,255,255,.62);white-space:nowrap}
+</style>
+</head>
+<body>
+  <main class="page">
+    
+    <div class="mini-title">
+      <h1>K播保健买手小周报</h1>
+      <span>2026 W28 · 06.29—07.12（数据更新至 07.13）</span>
+    </div>
+    <nav class="section-nav" aria-label="周报目录">
+      
+        <a class="nav-berry" href="#ytd">
+          <b>01</b>
+          <span><strong>YTD 保健爆品榜</strong><small>拿货基准</small></span>
+        </a>
+        <a class="nav-amber" href="#potential">
+          <b>02</b>
+          <span><strong>近 2 周潜力保健品</strong><small>新增观察</small></span>
+        </a>
+        <a class="nav-violet" href="#search">
+          <b>03</b>
+          <span><strong>潜力新品榜单</strong><small>2026 首次开单</small></span>
+        </a>
+    </nav>
+    
+  <section class="report-section tone-berry" id="ytd">
+    <header class="section-head">
+      <div class="section-number">01</div>
+      <div><h2>保健爆品榜</h2></div>
+      <div class="section-insight"><span>拿货基准</span>头部由维特健灵灵芝领跑，肠道益生菌与中式滋补占据核心档位。</div>
+      <div class="count">TOP 10</div>
+    </header>
+    <div class="all-grid">
+    <article class="full-card top-card" data-product="">
+      <div class="card-head">
+        <span class="rank">#01</span>
+        <span class="signal">稳居 TOP1</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="调节免疫力野生特级灵芝五色灵芝 商品图"><img src="https://qimg.xiaohongshu.com/arkgoods/1040g3no32259mu886u0g5ptj1kp157kerrn6ol0?item_id=69ddb1c78c82130001939a9e&imageView2/2/w/800/q/90.jpg" alt="调节免疫力野生特级灵芝五色灵芝" loading="lazy" /></div>
+        <div class="product-copy">
+          <h3>调节免疫力野生特级灵芝五色灵芝</h3>
+          <p class="store">VitaGreen维特健灵海外旗舰店</p>
+          <span class="scene">调节免疫</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>扶正防衰·滋补免疫</strong></div>
+      <div class="metric-line metric-line-solo">
+        <div><span>成交梯队</span><strong class="grade">头部 S+</strong></div>
+      </div>
+      <div class="tier-band" role="img" aria-label="调节免疫力野生特级灵芝五色灵芝 成交梯队：头部 S+">
+      <i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i>
+    </div>
+    </article>
+    <article class="full-card top-card" data-product="">
+      <div class="card-head">
+        <span class="rank">#02</span>
+        <span class="signal">稳定头部</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="燕之屋囗服燕窝肽高光瓶小分子肽燕窝饮唾液 商品图"><img src="https://qimg.xiaohongshu.com/arkgoods/1040g3no31s7umflnl60g5pu01q03i1ll8a56odo?item_id=69fef94d085ba60001a76695&imageView2/2/w/800/q/90.jpg" alt="燕之屋囗服燕窝肽高光瓶小分子肽燕窝饮唾液" loading="lazy" /></div>
+        <div class="product-copy">
+          <h3>燕之屋囗服燕窝肽高光瓶小分子肽燕窝饮唾液</h3>
+          <p class="store">YANPEP旗舰店</p>
+          <span class="scene">口服美容</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>肽+燕窝·晨间光泽</strong></div>
+      <div class="metric-line metric-line-solo">
+        <div><span>成交梯队</span><strong class="grade">头部 S</strong></div>
+      </div>
+      <div class="tier-band" role="img" aria-label="燕之屋囗服燕窝肽高光瓶小分子肽燕窝饮唾液 成交梯队：头部 S">
+      <i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i>
+    </div>
+    </article>
+    <article class="full-card top-card" data-product="">
+      <div class="card-head">
+        <span class="rank">#03</span>
+        <span class="signal">稳定头部</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="顺六福胶囊情绪NodulesFREE麦角 商品图"><img src="https://qimg.xiaohongshu.com/arkgoods/1040g3no31top4urhmo0g5o6dkka090m730606u8?item_id=68242b17728217000135d4b0&imageView2/2/w/800/q/90.jpg" alt="顺六福胶囊情绪NodulesFREE麦角" loading="lazy" /></div>
+        <div class="product-copy">
+          <h3>顺六福胶囊情绪NodulesFREE麦角</h3>
+          <p class="store">Yonen永恩海外旗舰店</p>
+          <span class="scene">情绪管理</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>抗氧化·压力舒缓</strong></div>
+      <div class="metric-line metric-line-solo">
+        <div><span>成交梯队</span><strong class="grade">头部 S</strong></div>
+      </div>
+      <div class="tier-band" role="img" aria-label="顺六福胶囊情绪NodulesFREE麦角 成交梯队：头部 S">
+      <i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i>
+    </div>
+    </article>
+    <article class="full-card " data-product="">
+      <div class="card-head">
+        <span class="rank">#04</span>
+        <span class="signal">维稳承接</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="护士茶 有机认证 百年古方 深度清体净澈 商品图"><img src="https://qimg.xiaohongshu.com/arkgoods/1040g3no31pdrltfk240g40se4tt8iskvrc20jv8?item_id=695245fd7cad4e0001c1b398&imageView2/2/w/800/q/90.jpg" alt="护士茶 有机认证 百年古方 深度清体净澈" loading="lazy" /></div>
+        <div class="product-copy">
+          <h3>护士茶 有机认证 百年古方 深度清体净澈</h3>
+          <p class="store">FLORA海外旗舰店</p>
+          <span class="scene">清体净澈</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>肠道净化·古方草本</strong></div>
+      <div class="metric-line metric-line-solo">
+        <div><span>成交梯队</span><strong class="grade">核心 A+</strong></div>
+      </div>
+      <div class="tier-band" role="img" aria-label="护士茶 有机认证 百年古方 深度清体净澈 成交梯队：核心 A+">
+      <i class="on"></i><i class="on"></i><i class="on"></i><i></i>
+    </div>
+    </article>
+    <article class="full-card " data-product="">
+      <div class="card-head">
+        <span class="rank">#05</span>
+        <span class="signal">维稳承接</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="艾乐维卡粉白炮2.0重金属吸尘器PQQ祛 商品图"><img src="https://qimg.xiaohongshu.com/arkgoods/1040g0o0321fd07jan0005omjd0o5b8i97uvencg?item_id=6a041960721fd3000158f4de&imageView2/2/w/800/q/90.jpg" alt="艾乐维卡粉白炮2.0重金属吸尘器PQQ祛" loading="lazy" /></div>
+        <div class="product-copy">
+          <h3>艾乐维卡粉白炮2.0重金属吸尘器PQQ祛</h3>
+          <p class="store">ELLOVCA 艾乐维卡海外旗舰店</p>
+          <span class="scene">抗氧化</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>抗氧化·线粒体激活</strong></div>
+      <div class="metric-line metric-line-solo">
+        <div><span>成交梯队</span><strong class="grade">核心 A</strong></div>
+      </div>
+      <div class="tier-band" role="img" aria-label="艾乐维卡粉白炮2.0重金属吸尘器PQQ祛 成交梯队：核心 A">
+      <i class="on"></i><i class="on"></i><i class="on"></i><i></i>
+    </div>
+    </article>
+    <article class="full-card " data-product="">
+      <div class="card-head">
+        <span class="rank">#06</span>
+        <span class="signal">维稳承接</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="多效代谢益生菌胶囊 AKKKING2.0 商品图"><img src="https://qimg.xiaohongshu.com/arkgoods/1040g3no31vpuh0hais0g5ob1f7v0kj22u4kmt50?item_id=6a2679ef14e0a000016ab3ad&imageView2/2/w/800/q/90.jpg" alt="多效代谢益生菌胶囊 AKKKING2.0" loading="lazy" /></div>
+        <div class="product-copy">
+          <h3>多效代谢益生菌胶囊 AKKKING2.0</h3>
+          <p class="store">WonderLab保健食品海外旗舰店</p>
+          <span class="scene">肠道调理</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>AKK益生菌·代谢肠道</strong></div>
+      <div class="metric-line metric-line-solo">
+        <div><span>成交梯队</span><strong class="grade">核心 A</strong></div>
+      </div>
+      <div class="tier-band" role="img" aria-label="多效代谢益生菌胶囊 AKKKING2.0 成交梯队：核心 A">
+      <i class="on"></i><i class="on"></i><i class="on"></i><i></i>
+    </div>
+    </article>
+    <article class="full-card " data-product="">
+      <div class="card-head">
+        <span class="rank">#07</span>
+        <span class="signal">承接盘子</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="肠久久复合益生菌小蓝盒 商品图"><img src="https://qimg.xiaohongshu.com/arkgoods/1040g3no31uuau84i2s0g5njhg8t08i3m6hp736g?item_id=6768bf87b1267e0001c09363&imageView2/2/w/800/q/90.jpg" alt="肠久久复合益生菌小蓝盒" loading="lazy" /></div>
+        <div class="product-copy">
+          <h3>肠久久复合益生菌小蓝盒</h3>
+          <p class="store">吃的学问旗舰店</p>
+          <span class="scene">肠道调理</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>肠道益生菌·舒缓型</strong></div>
+      <div class="metric-line metric-line-solo">
+        <div><span>成交梯队</span><strong class="grade">成长 B+</strong></div>
+      </div>
+      <div class="tier-band" role="img" aria-label="肠久久复合益生菌小蓝盒 成交梯队：成长 B+">
+      <i class="on"></i><i class="on"></i><i></i><i></i>
+    </div>
+    </article>
+    <article class="full-card " data-product="">
+      <div class="card-head">
+        <span class="rank">#08</span>
+        <span class="signal">承接盘子</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="丸治益生Smart Slim Plus益 商品图"><img src="https://qimg.xiaohongshu.com/arkgoods/1040g0o0321f771v16u005oj6bgu412j3seqnnk0?item_id=66ab06bfdf6161000162b8f5&imageView2/2/w/800/q/90.jpg" alt="丸治益生Smart Slim Plus益" loading="lazy" /></div>
+        <div class="product-copy">
+          <h3>丸治益生Smart Slim Plus益</h3>
+          <p class="store">Dr.Watanabe海外旗舰店</p>
+          <span class="scene">滋补</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>滋补养生·大健康</strong></div>
+      <div class="metric-line metric-line-solo">
+        <div><span>成交梯队</span><strong class="grade">成长 B</strong></div>
+      </div>
+      <div class="tier-band" role="img" aria-label="丸治益生Smart Slim Plus益 成交梯队：成长 B">
+      <i class="on"></i><i class="on"></i><i></i><i></i>
+    </div>
+    </article>
+    <article class="full-card " data-product="">
+      <div class="card-head">
+        <span class="rank">#09</span>
+        <span class="signal">观察维稳</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="丸治益生弹力丸加固弹性纤维网轮廓紧致饱满 商品图"><img src="https://qimg.xiaohongshu.com/arkgoods/1040g3no321f76brd740g5oj6bgu412j3vl7io9o?item_id=6a044b670283e20001cc070d&imageView2/2/w/800/q/90.jpg" alt="丸治益生弹力丸加固弹性纤维网轮廓紧致饱满" loading="lazy" /></div>
+        <div class="product-copy">
+          <h3>丸治益生弹力丸加固弹性纤维网轮廓紧致饱满</h3>
+          <p class="store">Dr.Watanabe海外旗舰店</p>
+          <span class="scene">滋补</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>滋补养生·大健康</strong></div>
+      <div class="metric-line metric-line-solo">
+        <div><span>成交梯队</span><strong class="grade">观察 C+</strong></div>
+      </div>
+      <div class="tier-band" role="img" aria-label="丸治益生弹力丸加固弹性纤维网轮廓紧致饱满 成交梯队：观察 C+">
+      <i class="on"></i><i></i><i></i><i></i>
+    </div>
+    </article>
+    <article class="full-card " data-product="">
+      <div class="card-head">
+        <span class="rank">#10</span>
+        <span class="signal">观察维稳</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="活性肽辅酶Q10小红泵软胶囊提升心健康能 商品图"><img src="https://qimg.xiaohongshu.com/arkgoods/1040g0o031v8n2rjf3m005plpjnq7c477f6jpsco?item_id=69ae7623f209ba0001fabd04&imageView2/2/w/800/q/90.jpg" alt="活性肽辅酶Q10小红泵软胶囊提升心健康能" loading="lazy" /></div>
+        <div class="product-copy">
+          <h3>活性肽辅酶Q10小红泵软胶囊提升心健康能</h3>
+          <p class="store">Designs for Health海外旗舰店</p>
+          <span class="scene">滋补</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>滋补养生·大健康</strong></div>
+      <div class="metric-line metric-line-solo">
+        <div><span>成交梯队</span><strong class="grade">观察 C</strong></div>
+      </div>
+      <div class="tier-band" role="img" aria-label="活性肽辅酶Q10小红泵软胶囊提升心健康能 成交梯队：观察 C">
+      <i class="on"></i><i></i><i></i><i></i>
+    </div>
+    </article>
+    </div>
+  </section>
+  <section class="report-section tone-amber" id="potential">
+    <header class="section-head">
+      <div class="section-number">02</div>
+      <div><h2>近 2 周潜力保健品</h2></div>
+      <div class="section-insight"><span>新增观察</span>中式滋补、麦角硫因、AKG 抗衰、卵巢保养集中爆发。</div>
+      <div class="count">TOP 10</div>
+    </header>
+    <div class="all-grid">
+    <article class="full-card top-card" data-product="">
+      <div class="card-head">
+        <span class="rank">#01</span>
+        <span class="signal">爆发放量</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="香港无湿轻 精选十二种草本精华 X 商品图"><img src="https://qimg.xiaohongshu.com/arkgoods/1040g0o0321lt0agsn0005pdrb8m3kj1npsp6af8?item_id=6a3df07840cf2900018e2573&imageView2/2/w/800/q/90.jpg" alt="香港无湿轻 精选十二种草本精华 X" loading="lazy" /></div>
+        <div class="product-copy">
+          <h3>香港无湿轻 精选十二种草本精华 X</h3>
+          <p class="store">小主海外旗舰店</p>
+          <span class="scene">中式滋补</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>十二种草本·祛湿滋补</strong></div>
+      <div class="metric-line">
+        <div><span>机会等级</span><strong class="grade">优先 S+</strong></div>
+        <div class="delta up"><small>14日增势</small>+48,634%</div>
+      </div>
+      <div class="spark spark28" role="img" aria-label="香港无湿轻 精选十二种草本精华 X 近28日 GMV 每日走势 +48,634%" title="06-15 → 07-12 每日 K播 DGMV｜前14日 vs 近14日">
+        <i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:6%"></i><i style="--h:3%"></i><i style="--h:6%"></i><i style="--h:6%"></i><i style="--h:3%"></i><i style="--h:6%"></i><i style="--h:6%"></i><i style="--h:6%"></i><i style="--h:3%"></i><i style="--h:6%"></i><i style="--h:6%"></i><i style="--h:6%"></i><i style="--h:6%"></i><i style="--h:3%"></i><i style="--h:96%"></i>
+      </div>
+    </article>
+    <article class="full-card top-card" data-product="">
+      <div class="card-head">
+        <span class="rank">#02</span>
+        <span class="signal">爆发放量</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="逆龄粉AKG瑞士抗衰水润逆龄除皱淡斑去黄 商品图"><img src="https://qimg.xiaohongshu.com/arkgoods/1040g0o031u26l96mh8005odj0p60jfm4dqd3tt8?item_id=69ca548d5dab9a0001c9a821&imageView2/2/w/800/q/90.jpg" alt="逆龄粉AKG瑞士抗衰水润逆龄除皱淡斑去黄" loading="lazy" /></div>
+        <div class="product-copy">
+          <h3>逆龄粉AKG瑞士抗衰水润逆龄除皱淡斑去黄</h3>
+          <p class="store">AVEA.LIFE海外旗舰店</p>
+          <span class="scene">抗衰紧致</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>AKG抗衰·科学配方</strong></div>
+      <div class="metric-line">
+        <div><span>机会等级</span><strong class="grade">优先 S+</strong></div>
+        <div class="delta up"><small>14日增势</small>+4,770%</div>
+      </div>
+      <div class="spark spark28" role="img" aria-label="逆龄粉AKG瑞士抗衰水润逆龄除皱淡斑去黄 近28日 GMV 每日走势 +4,770%" title="06-15 → 07-12 每日 K播 DGMV｜前14日 vs 近14日">
+        <i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:6%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:22%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:96%"></i><i style="--h:10%"></i>
+      </div>
+    </article>
+    <article class="full-card top-card" data-product="">
+      <div class="card-head">
+        <span class="rank">#03</span>
+        <span class="signal">爆发放量</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="陈公筱宝妇宝 平衡内源 养宫护巢 商品图"><img src="https://qimg.xiaohongshu.com/arkgoods/1040g3no3203p45i1hm0g5o5jjt9g825ddjnsn90?item_id=6a02d97c8e60b70001172ae3&imageView2/2/w/800/q/90.jpg" alt="陈公筱宝妇宝 平衡内源 养宫护巢" loading="lazy" /></div>
+        <div class="product-copy">
+          <h3>陈公筱宝妇宝 平衡内源 养宫护巢</h3>
+          <p class="store">陈公筱宝的海外店</p>
+          <span class="scene">中式滋补</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>中式滋补·养心/护巢</strong></div>
+      <div class="metric-line">
+        <div><span>机会等级</span><strong class="grade">优先 S+</strong></div>
+        <div class="delta up"><small>14日增势</small>+4,083%</div>
+      </div>
+      <div class="spark spark28" role="img" aria-label="陈公筱宝妇宝 平衡内源 养宫护巢 近28日 GMV 每日走势 +4,083%" title="06-15 → 07-12 每日 K播 DGMV｜前14日 vs 近14日">
+        <i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:6%"></i><i style="--h:3%"></i><i style="--h:6%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:8%"></i><i style="--h:6%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:23%"></i><i style="--h:96%"></i>
+      </div>
+    </article>
+    <article class="full-card " data-product="">
+      <div class="card-head">
+        <span class="rank">#04</span>
+        <span class="signal">爆发放量</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="陈公筱宝护心丹·养心健脾 通络调血 商品图"><img src="https://qimg.xiaohongshu.com/arkgoods/1040g3no31u3lhuk61s005o5jjt9g825dk36pp38?item_id=6a0a9328e1e137000136609c&imageView2/2/w/800/q/90.jpg" alt="陈公筱宝护心丹·养心健脾 通络调血" loading="lazy" /></div>
+        <div class="product-copy">
+          <h3>陈公筱宝护心丹·养心健脾 通络调血</h3>
+          <p class="store">陈公筱宝的海外店</p>
+          <span class="scene">中式滋补</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>中式滋补·养心/护巢</strong></div>
+      <div class="metric-line">
+        <div><span>机会等级</span><strong class="grade">优先 S+</strong></div>
+        <div class="delta up"><small>14日增势</small>+3,629%</div>
+      </div>
+      <div class="spark spark28" role="img" aria-label="陈公筱宝护心丹·养心健脾 通络调血 近28日 GMV 每日走势 +3,629%" title="06-15 → 07-12 每日 K播 DGMV｜前14日 vs 近14日">
+        <i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i>
+      </div>
+    </article>
+    <article class="full-card " data-product="">
+      <div class="card-head">
+        <span class="rank">#05</span>
+        <span class="signal">强势加速</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="她练富铁软糖养颜养生铁剂熬夜气色孕期补铁 商品图"><img src="https://qimg.xiaohongshu.com/arkgoods/1040g3no321gtm6o7720g5p9mhvi11962ujbhbpg?item_id=69f1b71482f561001572375a&imageView2/2/w/800/q/90.jpg" alt="她练富铁软糖养颜养生铁剂熬夜气色孕期补铁" loading="lazy" /></div>
+        <div class="product-copy">
+          <h3>她练富铁软糖养颜养生铁剂熬夜气色孕期补铁</h3>
+          <p class="store">fiboo旗舰店</p>
+          <span class="scene">气血调理</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>软糖补铁·女性气色</strong></div>
+      <div class="metric-line">
+        <div><span>机会等级</span><strong class="grade">优先 S</strong></div>
+        <div class="delta up"><small>14日增势</small>+1,460%</div>
+      </div>
+      <div class="spark spark28" role="img" aria-label="她练富铁软糖养颜养生铁剂熬夜气色孕期补铁 近28日 GMV 每日走势 +1,460%" title="06-15 → 07-12 每日 K播 DGMV｜前14日 vs 近14日">
+        <i style="--h:6%"></i><i style="--h:6%"></i><i style="--h:6%"></i><i style="--h:6%"></i><i style="--h:6%"></i><i style="--h:3%"></i><i style="--h:6%"></i><i style="--h:6%"></i><i style="--h:6%"></i><i style="--h:3%"></i><i style="--h:6%"></i><i style="--h:6%"></i><i style="--h:6%"></i><i style="--h:6%"></i><i style="--h:6%"></i><i style="--h:96%"></i><i style="--h:6%"></i><i style="--h:6%"></i><i style="--h:6%"></i><i style="--h:6%"></i><i style="--h:6%"></i><i style="--h:3%"></i><i style="--h:6%"></i><i style="--h:3%"></i><i style="--h:6%"></i><i style="--h:6%"></i><i style="--h:6%"></i><i style="--h:6%"></i>
+      </div>
+    </article>
+    <article class="full-card " data-product="">
+      <div class="card-head">
+        <span class="rank">#06</span>
+        <span class="signal">连续加速</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="达人儿童青少年BL-11益生菌胶囊营养赖 商品图"><img src="https://qimg.xiaohongshu.com/arkgoods/1040g3no3217uqk6u6s0g5pqrqkfi14467l1k7m0?item_id=693c3d6e3753f700012c1da3&imageView2/2/w/800/q/90.jpg" alt="达人儿童青少年BL-11益生菌胶囊营养赖" loading="lazy" /></div>
+        <div class="product-copy">
+          <h3>达人儿童青少年BL-11益生菌胶囊营养赖</h3>
+          <p class="store">Hyprogrow海古乐 BL-11益生菌海外旗舰店</p>
+          <span class="scene">儿童营养</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>儿童增强·多重营养</strong></div>
+      <div class="metric-line">
+        <div><span>机会等级</span><strong class="grade">强潜 A+</strong></div>
+        <div class="delta up"><small>14日增势</small>+642%</div>
+      </div>
+      <div class="spark spark28" role="img" aria-label="达人儿童青少年BL-11益生菌胶囊营养赖 近28日 GMV 每日走势 +642%" title="06-15 → 07-12 每日 K播 DGMV｜前14日 vs 近14日">
+        <i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:17%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:96%"></i><i style="--h:12%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:24%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i>
+      </div>
+    </article>
+    <article class="full-card " data-product="">
+      <div class="card-head">
+        <span class="rank">#07</span>
+        <span class="signal">连续加速</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="冷链B420益生菌挑战轻盈管理菊粉膳食纤 商品图"><img src="https://qimg.xiaohongshu.com/arkgoods/1040g0o031v8f06s3is005phd312gu2anm7ksh00?item_id=6865e5a42234040001f12413&imageView2/2/w/800/q/90.jpg" alt="冷链B420益生菌挑战轻盈管理菊粉膳食纤" loading="lazy" /></div>
+        <div class="product-copy">
+          <h3>冷链B420益生菌挑战轻盈管理菊粉膳食纤</h3>
+          <p class="store">Nutrition Care达意膳食专卖店</p>
+          <span class="scene">肠道调理</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>冷链益生菌·400亿活菌</strong></div>
+      <div class="metric-line">
+        <div><span>机会等级</span><strong class="grade">强潜 A+</strong></div>
+        <div class="delta up"><small>14日增势</small>+559%</div>
+      </div>
+      <div class="spark spark28" role="img" aria-label="冷链B420益生菌挑战轻盈管理菊粉膳食纤 近28日 GMV 每日走势 +559%" title="06-15 → 07-12 每日 K播 DGMV｜前14日 vs 近14日">
+        <i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:52%"></i><i style="--h:17%"></i><i style="--h:34%"></i><i style="--h:50%"></i><i style="--h:49%"></i><i style="--h:81%"></i><i style="--h:96%"></i><i style="--h:11%"></i><i style="--h:80%"></i><i style="--h:87%"></i><i style="--h:6%"></i><i style="--h:22%"></i><i style="--h:37%"></i><i style="--h:6%"></i><i style="--h:44%"></i><i style="--h:38%"></i><i style="--h:86%"></i>
+      </div>
+    </article>
+    <article class="full-card " data-product="">
+      <div class="card-head">
+        <span class="rank">#08</span>
+        <span class="signal">连续加速</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="儿童青少年BL-11益生菌胶囊营养素赖氨 商品图"><img src="https://qimg.xiaohongshu.com/arkgoods/1040g3no3217uqk6u6s0g5pqrqkfi14467l1k7m0?item_id=68f8a099e0f3b20001c6d7c6&imageView2/2/w/800/q/90.jpg" alt="儿童青少年BL-11益生菌胶囊营养素赖氨" loading="lazy" /></div>
+        <div class="product-copy">
+          <h3>儿童青少年BL-11益生菌胶囊营养素赖氨</h3>
+          <p class="store">Hyprogrow海古乐 BL-11益生菌海外旗舰店</p>
+          <span class="scene">儿童营养</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>儿童增强·多重营养</strong></div>
+      <div class="metric-line">
+        <div><span>机会等级</span><strong class="grade">强潜 A+</strong></div>
+        <div class="delta up"><small>14日增势</small>+531%</div>
+      </div>
+      <div class="spark spark28" role="img" aria-label="儿童青少年BL-11益生菌胶囊营养素赖氨 近28日 GMV 每日走势 +531%" title="06-15 → 07-12 每日 K播 DGMV｜前14日 vs 近14日">
+        <i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:6%"></i><i style="--h:14%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:11%"></i><i style="--h:3%"></i><i style="--h:96%"></i><i style="--h:12%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:71%"></i><i style="--h:6%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:6%"></i><i style="--h:3%"></i>
+      </div>
+    </article>
+    <article class="full-card " data-product="">
+      <div class="card-head">
+        <span class="rank">#09</span>
+        <span class="signal">稳步上升</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="红条极烧小紫条14包 商品图"><img src="https://qimg.xiaohongshu.com/arkgoods/1040g3no32252r0ckms0g5oc4k3540lamrr6d7eg?item_id=68ca98c09c4f880001d6708c&imageView2/2/w/800/q/90.jpg" alt="红条极烧小紫条14包" loading="lazy" /></div>
+        <div class="product-copy">
+          <h3>红条极烧小紫条14包</h3>
+          <p class="store">VitaGreen维特健灵海外旗舰店</p>
+          <span class="scene">滋补</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>滋补养生·大健康</strong></div>
+      <div class="metric-line">
+        <div><span>机会等级</span><strong class="grade">强潜 A</strong></div>
+        <div class="delta up"><small>14日增势</small>+314%</div>
+      </div>
+      <div class="spark spark28" role="img" aria-label="红条极烧小紫条14包 近28日 GMV 每日走势 +314%" title="06-15 → 07-12 每日 K播 DGMV｜前14日 vs 近14日">
+        <i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i>
+      </div>
+    </article>
+    <article class="full-card " data-product="">
+      <div class="card-head">
+        <span class="rank">#10</span>
+        <span class="signal">稳步上升</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="早BODY100晚S100 PLUS成人 商品图"><img src="https://qimg.xiaohongshu.com/arkgoods/1040g3no322i81hds740g43308l0pjlh0lheedqo?item_id=69c3786511534f0001951111&imageView2/2/w/800/q/90.jpg" alt="早BODY100晚S100 PLUS成人" loading="lazy" /></div>
+        <div class="product-copy">
+          <h3>早BODY100晚S100 PLUS成人</h3>
+          <p class="store">万益蓝WonderLab旗舰店</p>
+          <span class="scene">肠道调理</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>早晚循环·成人益生菌</strong></div>
+      <div class="metric-line">
+        <div><span>机会等级</span><strong class="grade">成长 B+</strong></div>
+        <div class="delta up"><small>14日增势</small>+176%</div>
+      </div>
+      <div class="spark spark28" role="img" aria-label="早BODY100晚S100 PLUS成人 近28日 GMV 每日走势 +176%" title="06-15 → 07-12 每日 K播 DGMV｜前14日 vs 近14日">
+        <i style="--h:6%"></i><i style="--h:64%"></i><i style="--h:9%"></i><i style="--h:7%"></i><i style="--h:3%"></i><i style="--h:6%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:6%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:9%"></i><i style="--h:6%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:45%"></i><i style="--h:3%"></i><i style="--h:90%"></i><i style="--h:6%"></i><i style="--h:7%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:3%"></i><i style="--h:96%"></i><i style="--h:6%"></i>
+      </div>
+    </article>
+    </div>
+  </section>
+  <section class="report-section tone-violet" id="search">
+    <header class="section-head">
+      <div class="section-number">03</div>
+      <div><h2>潜力新品榜单</h2></div>
+      <div class="section-insight"><span>首发观察</span>场景覆盖免疫脾氨肽、口服美容/美白、Omega-3、卵巢护养、脑力认知、控卡代餐、胶原、肝胆养护；丰安 FAMSAFE、infinityseek 海洋精粹油、ZOKOO 白丸领跑首发档。</div>
+      <div class="count">TOP 10</div>
+    </header>
+    <div class="all-grid">
+    <article class="full-card top-card" data-product="">
+      <div class="card-head">
+        <span class="rank">#01</span>
+        <span class="signal">首次开单</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="FAMSAFE 蔬果脾氨肽冻干粉平衡双向 商品图">
+          <img src="https://qimg.xiaohongshu.com/arkgoods/1040g0o0320628g6lk8005pu6ds93i5h39hd4rio?item_id=6a20e3d044bec000013cf3bc&imageView2/2/w/800/q/90.jpg" alt="FAMSAFE 蔬果脾氨肽冻干粉平衡双向" loading="lazy" />
+        </div>
+        <div class="product-copy">
+          <h3>FAMSAFE 蔬果脾氨肽冻干粉平衡双向</h3>
+          <p class="store">丰安健康旗舰店</p>
+          <span class="scene">免疫调节</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>蔬果脾氨肽·双向自护</strong></div>
+      <div class="metric-line metric-line-solo">
+        <div><span>新品档位</span><strong class="grade">首发 S+</strong></div>
+      </div>
+      <div class="tier-band" role="img" aria-label="FAMSAFE 蔬果脾氨肽冻干粉平衡双向 成交梯队：首发 S+">
+      <i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i>
+    </div>
+    </article>
+    <article class="full-card top-card" data-product="">
+      <div class="card-head">
+        <span class="rank">#02</span>
+        <span class="signal">首次开单</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="海洋精粹油 内火平衡 养出年轻态 商品图">
+          <img src="https://qimg.xiaohongshu.com/arkgoods/1040g3no320vp8rbsn40g5q7oiefdp23rv51eh78?item_id=6a01bfe6a0130600018aab80&imageView2/2/w/800/q/90.jpg" alt="海洋精粹油 内火平衡 养出年轻态" loading="lazy" />
+        </div>
+        <div class="product-copy">
+          <h3>海洋精粹油 内火平衡 养出年轻态</h3>
+          <p class="store">infinityseek海外旗舰店</p>
+          <span class="scene">口服美容</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>海洋精粹油·内火平衡</strong></div>
+      <div class="metric-line metric-line-solo">
+        <div><span>新品档位</span><strong class="grade">首发 S</strong></div>
+      </div>
+      <div class="tier-band" role="img" aria-label="海洋精粹油 内火平衡 养出年轻态 成交梯队：首发 S">
+      <i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i>
+    </div>
+    </article>
+    <article class="full-card top-card" data-product="">
+      <div class="card-head">
+        <span class="rank">#03</span>
+        <span class="signal">首次开单</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="白丸 亮白褪黄色沉淡化贵妇珍珠光 商品图">
+          <img src="https://qimg.xiaohongshu.com/arkgoods/1040g0o031u4mj3qe2u005q6i86dok5col6btc4g?item_id=69c39d25180bf40001c01d45&imageView2/2/w/800/q/90.jpg" alt="白丸 亮白褪黄色沉淡化贵妇珍珠光" loading="lazy" />
+        </div>
+        <div class="product-copy">
+          <h3>白丸 亮白褪黄色沉淡化贵妇珍珠光</h3>
+          <p class="store">ZOKOO的海外店</p>
+          <span class="scene">口服美白</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>ZOKOO 白丸·亮白褪黄</strong></div>
+      <div class="metric-line metric-line-solo">
+        <div><span>新品档位</span><strong class="grade">首发 S</strong></div>
+      </div>
+      <div class="tier-band" role="img" aria-label="白丸 亮白褪黄色沉淡化贵妇珍珠光 成交梯队：首发 S">
+      <i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i>
+    </div>
+    </article>
+    <article class="full-card " data-product="">
+      <div class="card-head">
+        <span class="rank">#04</span>
+        <span class="signal">新品上架</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="阿拉斯加鳕鱼1250mg黑金鱼油鱼油软胶 商品图">
+          <img src="https://qimg.xiaohongshu.com/arkgoods/1040g3no3228umn5b6u0g5psdnq8jli7jg794g40?item_id=6a3cb6401a14830001967a2e&imageView2/2/w/800/q/90.jpg" alt="阿拉斯加鳕鱼1250mg黑金鱼油鱼油软胶" loading="lazy" />
+        </div>
+        <div class="product-copy">
+          <h3>阿拉斯加鳕鱼1250mg黑金鱼油鱼油软胶</h3>
+          <p class="store">SportsResearch海外旗舰店</p>
+          <span class="scene">Omega-3</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>阿拉斯加鳕鱼·黑金鱼油</strong></div>
+      <div class="metric-line metric-line-solo">
+        <div><span>新品档位</span><strong class="grade">上升 A+</strong></div>
+      </div>
+      <div class="tier-band" role="img" aria-label="阿拉斯加鳕鱼1250mg黑金鱼油鱼油软胶 成交梯队：上升 A+">
+      <i class="on"></i><i class="on"></i><i class="on"></i><i></i>
+    </div>
+    </article>
+    <article class="full-card " data-product="">
+      <div class="card-head">
+        <span class="rank">#05</span>
+        <span class="signal">新品上架</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="陈公筱宝妇宝 平衡内源 养宫护巢 商品图">
+          <img src="https://qimg.xiaohongshu.com/arkgoods/1040g3no3203p45i1hm0g5o5jjt9g825ddjnsn90?item_id=6a50a0ae217f140001086b9d&imageView2/2/w/800/q/90.jpg" alt="陈公筱宝妇宝 平衡内源 养宫护巢" loading="lazy" />
+        </div>
+        <div class="product-copy">
+          <h3>陈公筱宝妇宝 平衡内源 养宫护巢</h3>
+          <p class="store">陈公筱宝的海外店</p>
+          <span class="scene">卵巢保养</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>陈公筱宝妇宝·养宫护巢</strong></div>
+      <div class="metric-line metric-line-solo">
+        <div><span>新品档位</span><strong class="grade">上升 A+</strong></div>
+      </div>
+      <div class="tier-band" role="img" aria-label="陈公筱宝妇宝 平衡内源 养宫护巢 成交梯队：上升 A+">
+      <i class="on"></i><i class="on"></i><i class="on"></i><i></i>
+    </div>
+    </article>
+    <article class="full-card " data-product="">
+      <div class="card-head">
+        <span class="rank">#06</span>
+        <span class="signal">新品上架</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="法国小紫「外交官」脑活丸 商品图">
+          <img src="https://qimg.xiaohongshu.com/arkgoods/1040g0o031sda1ku8la005q3m2hd7k7gmav08o4o?item_id=699efdbe97a5d70001c7311e&imageView2/2/w/800/q/90.jpg" alt="法国小紫「外交官」脑活丸" loading="lazy" />
+        </div>
+        <div class="product-copy">
+          <h3>法国小紫「外交官」脑活丸</h3>
+          <p class="store">VALCENA海外旗舰店</p>
+          <span class="scene">脑力认知</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>小紫外交官·脑活丸</strong></div>
+      <div class="metric-line metric-line-solo">
+        <div><span>新品档位</span><strong class="grade">上升 A+</strong></div>
+      </div>
+      <div class="tier-band" role="img" aria-label="法国小紫「外交官」脑活丸 成交梯队：上升 A+">
+      <i class="on"></i><i class="on"></i><i class="on"></i><i></i>
+    </div>
+    </article>
+    <article class="full-card " data-product="">
+      <div class="card-head">
+        <span class="rank">#07</span>
+        <span class="signal">新品上架</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="吸溜纤蔬高膳多维饮 控卡轻断食膳食纤维果 商品图">
+          <img src="https://qimg.xiaohongshu.com/arkgoods/1040g0o0321cnavr1n2005o9pofjnvao7hrjsacg?item_id=6a194488a30a660001dfabbb&imageView2/2/w/800/q/90.jpg" alt="吸溜纤蔬高膳多维饮 控卡轻断食膳食纤维果" loading="lazy" />
+        </div>
+        <div class="product-copy">
+          <h3>吸溜纤蔬高膳多维饮 控卡轻断食膳食纤维果</h3>
+          <p class="store">BUFFDAY膳食旗舰店</p>
+          <span class="scene">控卡代餐</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>吸溜纤蔬·高膳多维饮</strong></div>
+      <div class="metric-line metric-line-solo">
+        <div><span>新品档位</span><strong class="grade">上升 A</strong></div>
+      </div>
+      <div class="tier-band" role="img" aria-label="吸溜纤蔬高膳多维饮 控卡轻断食膳食纤维果 成交梯队：上升 A">
+      <i class="on"></i><i class="on"></i><i class="on"></i><i></i>
+    </div>
+    </article>
+    <article class="full-card " data-product="">
+      <div class="card-head">
+        <span class="rank">#08</span>
+        <span class="signal">新品上架</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="挪威极光态高浓度85%Omega3鱼油软 商品图">
+          <img src="https://qimg.xiaohongshu.com/arkgoods/1040g0o0321dvahjq74004bgsavgao4slqh2tpb8?item_id=6a2f5fcae503360001ef7577&imageView2/2/w/800/q/90.jpg" alt="挪威极光态高浓度85%Omega3鱼油软" loading="lazy" />
+        </div>
+        <div class="product-copy">
+          <h3>挪威极光态高浓度85%Omega3鱼油软</h3>
+          <p class="store">YEANO海外旗舰店</p>
+          <span class="scene">Omega-3</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>挪威极光态·85% 高纯 EPA</strong></div>
+      <div class="metric-line metric-line-solo">
+        <div><span>新品档位</span><strong class="grade">上升 A</strong></div>
+      </div>
+      <div class="tier-band" role="img" aria-label="挪威极光态高浓度85%Omega3鱼油软 成交梯队：上升 A">
+      <i class="on"></i><i class="on"></i><i class="on"></i><i></i>
+    </div>
+    </article>
+    <article class="full-card " data-product="">
+      <div class="card-head">
+        <span class="rank">#09</span>
+        <span class="signal">新品上架</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="英国进口素食胶原蛋白小分子好吸收 淡化皱 商品图">
+          <img src="https://qimg.xiaohongshu.com/arkgoods/1040g3no322aa4864n00g5ptc202j92j3arn8oi0?item_id=6a0d6f7490bd1b00017e8e8d&imageView2/2/w/800/q/90.jpg" alt="英国进口素食胶原蛋白小分子好吸收 淡化皱" loading="lazy" />
+        </div>
+        <div class="product-copy">
+          <h3>英国进口素食胶原蛋白小分子好吸收 淡化皱</h3>
+          <p class="store">Feel海外旗舰店</p>
+          <span class="scene">胶原蛋白</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>英国素食胶原·肌肤水润</strong></div>
+      <div class="metric-line metric-line-solo">
+        <div><span>新品档位</span><strong class="grade">起量 B+</strong></div>
+      </div>
+      <div class="tier-band" role="img" aria-label="英国进口素食胶原蛋白小分子好吸收 淡化皱 成交梯队：起量 B+">
+      <i class="on"></i><i class="on"></i><i></i><i></i>
+    </div>
+    </article>
+    <article class="full-card " data-product="">
+      <div class="card-head">
+        <span class="rank">#10</span>
+        <span class="signal">新品上架</span>
+      </div>
+      <div class="product-line">
+        <div class="packshot packshot-photo" role="img" aria-label="澳门小绿盒+ 金胆粉解护胶囊 商品图">
+          <img src="https://qimg.xiaohongshu.com/arkgoods/1040g0o031s6t6itg5c005ov8ncq9grd1a2jda68?item_id=6984566ca5576f0001162494&imageView2/2/w/800/q/90.jpg" alt="澳门小绿盒+ 金胆粉解护胶囊" loading="lazy" />
+        </div>
+        <div class="product-copy">
+          <h3>澳门小绿盒+ 金胆粉解护胶囊</h3>
+          <p class="store">熊延堂海外旗舰店</p>
+          <span class="scene">肝胆养护</span>
+        </div>
+      </div>
+      <div class="effect"><span>核心功效</span><strong>澳门小绿盒·金胆粉解护</strong></div>
+      <div class="metric-line metric-line-solo">
+        <div><span>新品档位</span><strong class="grade">起量 B+</strong></div>
+      </div>
+      <div class="tier-band" role="img" aria-label="澳门小绿盒+ 金胆粉解护胶囊 成交梯队：起量 B+">
+      <i class="on"></i><i class="on"></i><i></i><i></i>
+    </div>
+    </article>
+    </div>
+  </section>
+  <footer>
+    <span><strong>K播保健买手周报 · W28</strong>｜商品图取自小红书商详头图。</span>
+    <span>金额已脱敏；排名、梯队与增势方向仅用于类目内相对比较·数据更新至 2026-07-13</span>
+  </footer>
+  </main>
+</body>
+</html>
